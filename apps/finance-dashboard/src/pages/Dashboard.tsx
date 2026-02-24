@@ -49,32 +49,32 @@ const Dashboard = () => {
               </>
             ) : (
               <>
-                <KpiCard 
-                  title="Total Income" 
-                  amount={formatCurrency(summary?.totalIncome ?? 0)} 
-                  trend="vs last month" 
-                  trendType={incomeChange >= 0 ? 'up' : 'down'} 
-                  trendValue={`${Math.abs(incomeChange).toFixed(1)}%`} 
-                  icon="payments" 
-                  type="income" 
+                <KpiCard
+                  title="Total Income"
+                  amount={formatCurrency(summary?.totalIncome ?? 0)}
+                  trend="vs last month"
+                  trendType={incomeChange >= 0 ? 'up' : 'down'}
+                  trendValue={`${Math.abs(incomeChange).toFixed(1)}%`}
+                  icon="payments"
+                  type="income"
                 />
-                <KpiCard 
-                  title="Total Expense" 
-                  amount={formatCurrency(summary?.totalExpense ?? 0)} 
-                  trend="vs last month" 
-                  trendType={expenseChange <= 0 ? 'down' : 'up'} 
-                  trendValue={`${Math.abs(expenseChange).toFixed(1)}%`} 
-                  icon="shopping_cart" 
-                  type="expense" 
+                <KpiCard
+                  title="Total Expense"
+                  amount={formatCurrency(summary?.totalExpense ?? 0)}
+                  trend="vs last month"
+                  trendType={expenseChange <= 0 ? 'down' : 'up'}
+                  trendValue={`${Math.abs(expenseChange).toFixed(1)}%`}
+                  icon="shopping_cart"
+                  type="expense"
                 />
-                <KpiCard 
-                  title="Net Balance" 
-                  amount={formatCurrency(summary?.netBalance ?? 0)} 
-                  trend={(summary?.netBalance ?? 0) >= 0 ? 'Safe & Healthy' : 'Needs Attention'} 
-                  trendType={balanceChange >= 0 ? 'up' : 'down'} 
-                  trendValue={`${Math.abs(balanceChange).toFixed(1)}%`} 
-                  icon="account_balance" 
-                  type="balance" 
+                <KpiCard
+                  title="Net Balance"
+                  amount={formatCurrency(summary?.netBalance ?? 0)}
+                  trend={(summary?.netBalance ?? 0) >= 0 ? 'Safe & Healthy' : 'Needs Attention'}
+                  trendType={balanceChange >= 0 ? 'up' : 'down'}
+                  trendValue={`${Math.abs(balanceChange).toFixed(1)}%`}
+                  icon="account_balance"
+                  type="balance"
                 />
               </>
             )}
@@ -97,15 +97,15 @@ const Dashboard = () => {
 // Skeleton component for loading state
 function KpiCardSkeleton() {
   return (
-    <div className="p-6 rounded-xl border shadow-sm bg-white dark:bg-surface-dark border-slate-100 dark:border-[#2a3f33] animate-pulse">
+    <div className="p-6 rounded-xl border shadow-sm bg-[#1a2a32] border-[#2a4a54] animate-pulse">
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-9 h-9 rounded-lg bg-slate-200 dark:bg-slate-700" />
-        <div className="w-24 h-4 bg-slate-200 dark:bg-slate-700 rounded" />
+        <div className="w-9 h-9 rounded-lg bg-white/10" />
+        <div className="w-24 h-4 bg-white/10 rounded" />
       </div>
-      <div className="w-32 h-8 bg-slate-200 dark:bg-slate-700 rounded mb-3" />
+      <div className="w-32 h-8 bg-white/10 rounded mb-3" />
       <div className="flex items-center gap-2">
-        <div className="w-12 h-5 bg-slate-200 dark:bg-slate-700 rounded-full" />
-        <div className="w-20 h-4 bg-slate-200 dark:bg-slate-700 rounded" />
+        <div className="w-12 h-5 bg-white/10 rounded-full" />
+        <div className="w-20 h-4 bg-white/10 rounded" />
       </div>
     </div>
   );

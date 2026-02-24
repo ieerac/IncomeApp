@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://fintrack:fintrack123@localhost:5432/fintrack"
+}
+
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  name       String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+    @@map("user")   // memetakan model User ke tabel "user"
+}
+
+

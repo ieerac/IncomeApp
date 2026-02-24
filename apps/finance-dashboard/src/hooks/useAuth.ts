@@ -67,3 +67,17 @@ export function useSignOut() {
 
   return { signOut };
 }
+
+/**
+ * Hook for Google sign in
+ */
+export function useGoogleSignIn() {
+  const signInWithGoogle = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: window.location.origin + "/dashboard",
+    });
+  };
+
+  return { signInWithGoogle };
+}

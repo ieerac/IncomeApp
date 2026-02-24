@@ -3,19 +3,76 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-brand: #00C2FF;
+    --color-brand-hover: #00A3E0;
+    --color-bg-base: #0A0E12;
+    --color-bg-card-glass: rgba(15, 23, 42, 0.6);
+    --color-bg-input: rgba(255, 255, 255, 0.05);
+
+    --color-border-subtle: rgba(255, 255, 255, 0.1);
+    --color-border-brand-subtle: rgba(0, 194, 255, 0.2);
+
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #94A3B8;
+    --color-text-muted: #64748B;
+  }
+
+  body {
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+  }
+
   /* Custom scrollbar for dark mode vibe */
   ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+    width: 8px;
+    height: 8px;
   }
+
   ::-webkit-scrollbar-track {
-      background: #112117; 
+    background: #0A0E12;
   }
+
   ::-webkit-scrollbar-thumb {
-      background: #2a3f33; 
-      border-radius: 4px;
+    background: #1e293b;
+    border-radius: 4px;
   }
+
   ::-webkit-scrollbar-thumb:hover {
-      background: #36e27b; 
+    background: var(--color-brand);
+  }
+}
+
+@layer components {
+
+  /* Custom Glassmorphism Utility */
+  .glass-panel {
+    background-color: var(--color-bg-card-glass);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 1rem;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+
+  .glass-input {
+    background-color: var(--color-bg-input);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: 0.75rem;
+    color: var(--color-text-primary);
+    padding: 0.75rem 1rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+
+  .glass-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .glass-input:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-color: var(--color-border-brand-subtle);
+    box-shadow: 0 0 0 1px rgba(0, 194, 255, 0.5);
   }
 }
