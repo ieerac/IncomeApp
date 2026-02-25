@@ -4,7 +4,10 @@ import { db } from "./db.js";
 
 export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3001",
+  // Use FRONTEND_URL as baseURL so Google OAuth redirect_uri points to Vercel proxy
+  // This ensures ALL auth traffic goes through Vercel → cookies stay on one domain
+  baseURL: process.env.FRONTEND_URL || "http://localhost:3001",
+  basePath: "/api/auth",
   database: drizzleAdapter(db, {
     provider: "pg",
   }),
@@ -21,7 +24,10 @@ export const auth = betterAuth({
     expiresIn: 60 * 60 * 24 * 30, // 30 days
     updateAge: 60 * 60 * 24, // 1 day
   },
-  trustedOrigins: [process.env.FRONTEND_URL || "http://localhost:5173"],
+  trustedOrigins: [
+    process.env.FRONTEND_URL || "http://localhost:5173",
+    process.env.BETTER_AUTH_URL || "http://localhost:3001",
+  ],
   advanced: {
     defaultCookieAttributes: {
       sameSite: "none",
@@ -29,3 +35,4 @@ export const auth = betterAuth({
     },
   },
 });
+
