@@ -1,4 +1,4 @@
-# Finance Dashboard AI
+# Finance Dashboard 
 
 A modern finance dashboard application built with a monorepo architecture, featuring a React frontend and an Express backend.
 
