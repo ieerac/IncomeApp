@@ -6,8 +6,12 @@ import * as relations from "../db/relations.js";
 
 const { Pool } = pg;
 
+const isProduction = process.env.DATABASE_URL?.includes('neon.tech') ||
+  process.env.DATABASE_URL?.includes('sslmode=require');
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl: isProduction ? { rejectUnauthorized: false } : undefined,
 });
 
 export const db = drizzle(pool, {
