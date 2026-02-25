@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const isProd = import.meta.env.PROD;
+const API_BASE_URL = isProd ? '/api' : (import.meta.env.VITE_API_URL || 'http://localhost:3001');
 
 export interface ApiError {
   error: string;
@@ -17,7 +18,7 @@ export class ApiClient {
     options: RequestInit = {}
   ): Promise<T> {
     const url = `${this.baseUrl}${endpoint}`;
-    
+
     const config: RequestInit = {
       ...options,
       credentials: 'include', // Include cookies for auth
@@ -47,7 +48,7 @@ export class ApiClient {
 
   async get<T>(endpoint: string, params?: Record<string, string | number | undefined>): Promise<T> {
     let url = endpoint;
-    
+
     if (params) {
       const searchParams = new URLSearchParams();
       Object.entries(params).forEach(([key, value]) => {
