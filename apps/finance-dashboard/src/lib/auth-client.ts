@@ -4,6 +4,9 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
 
 export const authClient = createAuthClient({
   baseURL: API_BASE_URL,
+  fetchOptions: {
+    credentials: "include" as RequestCredentials,
+  },
 });
 
 // Export individual hooks for convenience
