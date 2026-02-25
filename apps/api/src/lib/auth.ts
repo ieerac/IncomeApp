@@ -19,7 +19,13 @@ export const auth = betterAuth({
   },
   session: {
     expiresIn: 60 * 60 * 24 * 30, // 30 days
-    updateAge: 60 * 60 * 24, // 1 day - update session if older than 1 day
+    updateAge: 60 * 60 * 24, // 1 day
   },
   trustedOrigins: [process.env.FRONTEND_URL || "http://localhost:5173"],
+  advanced: {
+    defaultCookieAttributes: {
+      sameSite: "none",
+      secure: true,
+    },
+  },
 });
