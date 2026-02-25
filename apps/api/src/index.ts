@@ -35,9 +35,14 @@ app.use("/api/transactions", transactionsRouter);
 app.use("/api/reports", reportsRouter);
 app.use("/api/time", timeRouter);
 
-// 404 handler
+// Redirect non-API routes to frontend (handles OAuth callback redirects)
 app.use((req, res) => {
-  res.status(404).json({ error: "Not found" });
+  const frontendURL = process.env.FRONTEND_URL || "http://localhost:5173";
+  if (req.path.startsWith("/api/")) {
+    res.status(404).json({ error: "Not found" });
+  } else {
+    res.redirect(`${frontendURL}${req.originalUrl}`);
+  }
 });
 
 // Error handler
