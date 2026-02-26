@@ -8,7 +8,11 @@ const isProduction = process.env.NODE_ENV === "production" ||
 
 export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3001",
+  // Use FRONTEND_URL as baseURL in production so Google OAuth redirect_uri points to Vercel proxy.
+  // In local dev, use the API's own URL because there is no proxy.
+  baseURL: isProduction
+    ? process.env.FRONTEND_URL
+    : (process.env.BETTER_AUTH_URL || "http://localhost:3001"),
   basePath: "/api/auth",
   database: drizzleAdapter(db, {
     provider: "pg",
