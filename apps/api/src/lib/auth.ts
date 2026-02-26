@@ -2,11 +2,13 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "./db.js";
 
+// Detect if we're in production (HTTPS) or local dev (HTTP)
+const isProduction = process.env.NODE_ENV === "production" ||
+  process.env.BETTER_AUTH_URL?.startsWith("https://");
+
 export const auth = betterAuth({
   secret: process.env.BETTER_AUTH_SECRET,
-  // Use FRONTEND_URL as baseURL so Google OAuth redirect_uri points to Vercel proxy
-  // This ensures ALL auth traffic goes through Vercel → cookies stay on one domain
-  baseURL: process.env.FRONTEND_URL || "http://localhost:3001",
+  baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3001",
   basePath: "/api/auth",
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -30,8 +32,10 @@ export const auth = betterAuth({
   ],
   advanced: {
     defaultCookieAttributes: {
-      sameSite: "none",
-      secure: true,
+      // In production (HTTPS): sameSite "none" + secure true for cross-origin cookies
+      // In local dev (HTTP): sameSite "lax" + secure false so cookies actually work
+      sameSite: isProduction ? "none" : "lax",
+      secure: isProduction,
     },
   },
 });

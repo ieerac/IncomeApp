@@ -1,4 +1,8 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// In production, force relative paths (empty string) so API requests go through the Vercel proxy.
+// This prevents third-party cookie blocking issues on Safari and Incognito mode.
+const API_BASE_URL = import.meta.env.PROD
+  ? ''
+  : (import.meta.env.VITE_API_URL || 'http://localhost:3001');
 
 export interface ApiError {
   error: string;
